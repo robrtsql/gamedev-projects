@@ -1,0 +1,3 @@
+extends Sprite
+
+var solution_grid_position
