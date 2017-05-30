@@ -7,8 +7,12 @@
 
 [node name="KinematicBody2D" parent="." instance=ExtResource( 1 )]
 
+editor/display_folded = true
+transform/pos = Vector2( -12.1457, -55.8543 )
+
 [node name="Camera2D" type="Camera2D" parent="KinematicBody2D"]
 
+visibility/visible = false
 anchor_mode = 1
 rotating = false
 current = true

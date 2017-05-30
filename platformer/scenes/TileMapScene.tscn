@@ -9,9 +9,7 @@ extents = Vector2( 11, 11 )
 
 [node name="Node" type="Node"]
 
-[node name="GrassyGroundMiddle" type="Node2D" parent="."]
-
-[node name="Sprite" type="Sprite" parent="GrassyGroundMiddle"]
+[node name="GrassyGroundMiddle" type="Sprite" parent="."]
 
 texture = ExtResource( 1 )
 region = true
