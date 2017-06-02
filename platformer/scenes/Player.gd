@@ -12,6 +12,7 @@ var MIN_UP_ANGLE = UP_ANGLE - (PI/4)
 var velocity = Vector2()
 var animator
 var grounded = false
+var jump_held
 
 func _ready():
 	animator = get_node("Sprite/AnimationPlayer")
@@ -29,6 +30,10 @@ func _apply_gravity(delta):
 	velocity.y += 300 * delta
 	if (velocity.y > TERMINAL_VELOCITY):
 		velocity.y = TERMINAL_VELOCITY
+
+func _handle_jump(delta):
+	if (Input.is_action_pressed("ui_up")):
+		velocity.y = -200
 
 func _move_with(velocity, delta):
 	if (velocity.x == 0 and velocity.y == 0):
@@ -54,6 +59,7 @@ func _move_with(velocity, delta):
 func _fixed_process(delta):
 	if (state == GROUNDED):
 		_move_horizontally()
+		_handle_jump(delta)
 		_apply_gravity(delta)
 		if (velocity.x != 0):
 			animator.set_anim("Walk")
