@@ -1,8 +1,17 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://tilesets/tileset.xml" type="TileSet" id=1]
 
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Node
+
+func _ready():
+	add_child(load(\"res://TiledMap.tscn\"))"
+
 [node name="Node" type="Node"]
+
+script/script = SubResource( 1 )
 
 [node name="TileMap" type="TileMap" parent="."]
 
