@@ -13,6 +13,8 @@ func _ready():
 			for object in layer['objects']:
 				print('Adding collision object')
 				add_child(_create_collision_object(object))
+	for child in get_children():
+		print(child)
 	pass
 
 func _create_collision_object(object):
@@ -22,6 +24,7 @@ func _create_collision_object(object):
 	var rect = RectangleShape2D.new()
 	rect.set_extents(Vector2(object['width']/2, object['height']/2))
 	shape.set_shape(rect)
+
 	body.add_child(shape)
 	
 	## DEBUG
