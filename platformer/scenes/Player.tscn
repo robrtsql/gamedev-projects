@@ -59,6 +59,7 @@ tracks/0/keys = {
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 
+editor/display_folded = true
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )

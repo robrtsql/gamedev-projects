@@ -1,7 +1,7 @@
 { "height":6,
  "layers":[
         {
-         "data":[153, 153, 153, 153, 153, 153, 153, 0, 0, 0, 0, 153, 153, 0, 0, 0, 0, 153, 153, 0, 0, 0, 0, 153, 153, 0, 0, 0, 0, 153, 153, 124, 124, 124, 124, 153],
+         "data":[333, 333, 333, 333, 333, 333, 7, 0, 0, 0, 0, 333, 7, 0, 0, 0, 0, 333, 7, 0, 0, 0, 0, 333, 7, 0, 0, 0, 0, 333, 7, 7, 7, 7, 7, 333],
          "height":6,
          "name":"Tile Layer 1",
          "opacity":1,
@@ -66,11 +66,32 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "name":"Object Layer 2",
+         "objects":[
+                {
+                 "height":21,
+                 "id":56,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":42,
+                 "y":63
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextobjectid":56,
+ "nextobjectid":57,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.0.1",
+ "tiledversion":"1.0.2",
  "tileheight":21,
  "tilesets":[
         {

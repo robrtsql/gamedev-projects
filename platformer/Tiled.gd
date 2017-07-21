@@ -1,6 +1,7 @@
 extends Node
 
 var levelname = 'testlevel'
+var player_scene = preload('res://scenes/Player.tscn')
 
 func _ready():
 	var test_level_json = {}
@@ -25,19 +26,29 @@ func _ready():
 			for i in range(0, size):
 				var x = i % int(layer_width)
 				var y = floor(i / layer_width)
-				print(x, ',', y)
-				add_child(_create_sprite_object(x, y, test_level_json['tilewidth'], test_level_json['tileheight'], data[i], tileset_image))
-	#for child in get_children():
-	#	print(child)
+				if data[i] != 0:
+					add_child(_create_sprite_object(x, y, test_level_json['tilewidth'], test_level_json['tileheight'], data[i], tileset_image))
+		elif layer['name'] == 'Object Layer 2':
+			for object in layer['objects']:
+				add_child(_create_player_object(object['x'], object['y']))
 	pass
+
+func _create_player_object(x, y):
+	var player_obj = player_scene.instance()
+	player_obj.set_pos(Vector2(x, y))
+	var camera = Camera2D.new()
+	camera.set_zoom(Vector2(0.5, 0.5))
+	camera.make_current()
+	player_obj.add_child(camera)
+	return player_obj
 
 func _create_sprite_object(x, y, tile_width, tile_height, tile_index, tileset_image):
 	var sprite = Sprite.new()
-	sprite.set_pos(Vector2(x * tile_width, y * tile_height))
+	sprite.set_pos(Vector2(x * tile_width + (tile_width / 2), y * tile_height + (tile_height / 2)))
 	sprite.set_texture(tileset_image)
 	sprite.set_vframes(30)
 	sprite.set_hframes(30)
-	sprite.set_frame(tile_index)
+	sprite.set_frame(tile_index - 1)
 	return sprite
 
 func _create_collision_object(object):
@@ -52,11 +63,11 @@ func _create_collision_object(object):
 	body.add_shape(rect)
 	
 	## DEBUG
-	var w = object['width']
-	var h = object['height']
-	var drawn_rect = Polygon2D.new()
-	drawn_rect.set_polygon([Vector2(x, y), Vector2(x + w, y), Vector2(x + w, y + h), Vector2(x, y + h)])
-	add_child(drawn_rect)
+	#var w = object['width']
+	#var h = object['height']
+	#var drawn_rect = Polygon2D.new()
+	#drawn_rect.set_polygon([Vector2(x, y), Vector2(x + w, y), Vector2(x + w, y + h), Vector2(x, y + h)])
+	#add_child(drawn_rect)
 	## DEBUG
 	
 	return body
