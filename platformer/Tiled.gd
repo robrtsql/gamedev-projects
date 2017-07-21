@@ -61,13 +61,4 @@ func _create_collision_object(object):
 	var rect = RectangleShape2D.new()
 	rect.set_extents(Vector2(half_width, half_height))
 	body.add_shape(rect)
-	
-	## DEBUG
-	#var w = object['width']
-	#var h = object['height']
-	#var drawn_rect = Polygon2D.new()
-	#drawn_rect.set_polygon([Vector2(x, y), Vector2(x + w, y), Vector2(x + w, y + h), Vector2(x, y + h)])
-	#add_child(drawn_rect)
-	## DEBUG
-	
 	return body

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.2" orientation="orthogonal" renderorder="right-down" width="6" height="6" tilewidth="21" tileheight="21" nextobjectid="57">
+<map version="1.0" tiledversion="1.0.2" orientation="orthogonal" renderorder="right-down" width="18" height="6" tilewidth="21" tileheight="21" nextobjectid="57">
  <tileset firstgid="1" source="kenney.tsx"/>
- <layer name="Tile Layer 1" width="6" height="6">
+ <layer name="Tile Layer 1" width="18" height="6">
   <data encoding="csv">
-333,333,333,333,333,333,
-7,0,0,0,0,333,
-7,0,0,0,0,333,
-7,0,0,0,0,333,
-7,0,0,0,0,333,
-7,7,7,7,7,333
+123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,
+153,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,153,
+153,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,153,
+153,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,153,
+153,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,153,
+153,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,123,153
 </data>
  </layer>
  <objectgroup name="Object Layer 1" offsetx="-0.333333" offsety="0.333333">
   <object id="5" x="0" y="21" width="21" height="84"/>
-  <object id="52" x="0" y="0" width="126" height="21"/>
-  <object id="53" x="0" y="105" width="126" height="21"/>
-  <object id="55" x="105" y="21" width="21" height="84"/>
+  <object id="52" x="0" y="0" width="377.818" height="21"/>
+  <object id="53" x="0" y="105" width="378" height="21"/>
+  <object id="55" x="357" y="21.1818" width="21" height="84"/>
  </objectgroup>
  <objectgroup name="Object Layer 2">
   <object id="56" x="42" y="63" width="21" height="21"/>
