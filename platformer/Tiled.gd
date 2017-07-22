@@ -15,10 +15,10 @@ func _ready():
 		print("was not a texture!! oh snap!!")
 	
 	for layer in test_level_json['layers']:
-		if layer['name'] == 'Object Layer 1':
+		if layer['name'] == 'collision':
 			for object in layer['objects']:
 				add_child(_create_collision_object(object))
-		elif layer['name'] == 'Tile Layer 1':
+		elif layer['name'] == 'tiles':
 			var layer_width = layer['width']
 			var layer_height = layer['height']
 			var data = layer['data']
@@ -28,7 +28,7 @@ func _ready():
 				var y = floor(i / layer_width)
 				if data[i] != 0:
 					add_child(_create_sprite_object(x, y, test_level_json['tilewidth'], test_level_json['tileheight'], data[i], tileset_image))
-		elif layer['name'] == 'Object Layer 2':
+		elif layer['name'] == 'player':
 			for object in layer['objects']:
 				add_child(_create_player_object(object['x'], object['y']))
 	pass

@@ -4,7 +4,7 @@ var state = 1
 var GROUNDED = 0
 var MIDAIR = 1
 
-var WALK_SPEED = 100
+var WALK_SPEED = 200
 var TERMINAL_VELOCITY = 200
 var UP_ANGLE = (PI/-2.0)
 var MAX_UP_ANGLE = UP_ANGLE + (PI/4)
@@ -17,6 +17,7 @@ var jump_held
 func _ready():
 	animator = get_node("Sprite/AnimationPlayer")
 	set_fixed_process(true)
+	OS.set_target_fps(60)
 
 func _move_horizontally():
 	if (Input.is_action_pressed("ui_left")):
@@ -33,13 +34,15 @@ func _apply_gravity(delta):
 
 func _handle_jump(delta):
 	if (Input.is_action_pressed("ui_up")):
-		velocity.y = -200
+		velocity.y = -225
 
 func _move_with(velocity, delta):
 	if (velocity.x == 0 and velocity.y == 0):
 		return
 	var motion = velocity * delta
-	move(motion)
+	var pixel_motion = Vector2(round(motion.x), round(motion.y))
+	move(pixel_motion)
+	#move(motion)
 	grounded = false
 	if (is_colliding()):
 		var n = get_collision_normal()
@@ -50,13 +53,16 @@ func _move_with(velocity, delta):
 			grounded = true
 		motion = n.slide(motion)
 		velocity = n.slide(velocity)
-		move(motion)
+		var pixel_motion = Vector2(round(motion.x), round(motion.y))
+		move(pixel_motion)
+		#move(motion)
 	if (grounded):
 		state = GROUNDED
 	else:
 		state = MIDAIR
 
 func _fixed_process(delta):
+	print(velocity)
 	if (state == GROUNDED):
 		_move_horizontally()
 		_handle_jump(delta)
