@@ -40,9 +40,9 @@ func _move_with(velocity, delta):
 	if (velocity.x == 0 and velocity.y == 0):
 		return
 	var motion = velocity * delta
-	var pixel_motion = Vector2(round(motion.x), round(motion.y))
-	move(pixel_motion)
-	#move(motion)
+	#var pixel_motion = Vector2(round(motion.x), round(motion.y))
+	#move(pixel_motion)
+	move(motion)
 	grounded = false
 	if (is_colliding()):
 		var n = get_collision_normal()
@@ -53,16 +53,15 @@ func _move_with(velocity, delta):
 			grounded = true
 		motion = n.slide(motion)
 		velocity = n.slide(velocity)
-		var pixel_motion = Vector2(round(motion.x), round(motion.y))
-		move(pixel_motion)
-		#move(motion)
+		#var pixel_motion = Vector2(round(motion.x), round(motion.y))
+		#move(pixel_motion)
+		move(motion)
 	if (grounded):
 		state = GROUNDED
 	else:
 		state = MIDAIR
 
 func _fixed_process(delta):
-	print(velocity)
 	if (state == GROUNDED):
 		_move_horizontally()
 		_handle_jump(delta)
