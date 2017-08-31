@@ -1,4 +1,5 @@
 extends KinematicBody2D
+var Interpolate = load("scenes/Interpolate.gd")
 
 var state = 1
 var GROUNDED = 0
@@ -13,11 +14,16 @@ var velocity = Vector2()
 var animator
 var grounded = false
 var jump_held
+var interpolater
 
 func _ready():
 	animator = get_node("Sprite/AnimationPlayer")
 	set_fixed_process(true)
+	set_process(true)
 	OS.set_target_fps(60)
+	
+	interpolater = Interpolate.new()
+	interpolater.initialize(get_node("Sprite"))
 
 func _move_horizontally():
 	if (Input.is_action_pressed("ui_left")):
@@ -62,6 +68,11 @@ func _move_with(velocity, delta):
 		state = MIDAIR
 
 func _fixed_process(delta):
+	if (Input.is_key_pressed(KEY_ESCAPE)):
+		get_tree().quit()
+	var prev_position = get_pos()
+	var teleported = false
+	
 	if (state == GROUNDED):
 		_move_horizontally()
 		_handle_jump(delta)
@@ -76,4 +87,7 @@ func _fixed_process(delta):
 		_apply_gravity(delta)
 		animator.set_anim("Fall")
 		_move_with(velocity, delta)
-	pass
+	interpolater.fixed_helper(delta, prev_position, teleported)
+
+func _process(delta):
+	interpolater.idle_interpolate(delta, get_pos())
