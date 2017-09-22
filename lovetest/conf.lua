@@ -1,9 +1,6 @@
 function love.conf( t)
-  t.window.width = 320
-  t.window.height = 240
-
-  t.window.minwidth = 320
-  t.window.minheight = 240
+  t.window.width = 960
+  t.window.height = 720
 
   t.title = "My amazing game in LÖVE!"
 
