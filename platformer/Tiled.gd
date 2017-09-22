@@ -37,7 +37,7 @@ func _create_player_object(x, y):
 	var player_obj = player_scene.instance()
 	player_obj.set_pos(Vector2(x, y))
 	var camera = Camera2D.new()
-	camera.set_zoom(Vector2(0.5, 0.5))
+	camera.set_zoom(Vector2(1, 1))
 	camera.set_drag_margin(MARGIN_BOTTOM, 0)
 	camera.set_drag_margin(MARGIN_TOP, 0)
 	camera.set_drag_margin(MARGIN_LEFT, 0)
@@ -48,7 +48,7 @@ func _create_player_object(x, y):
 
 func _create_sprite_object(x, y, tile_width, tile_height, tile_index, tileset_image):
 	var sprite = Sprite.new()
-	sprite.set_pos(Vector2(x * tile_width + (tile_width / 2), y * tile_height + (tile_height / 2)))
+	sprite.set_pos(Vector2(x * tile_width + (tile_width / 2) - 0.5, y * tile_height + (tile_height / 2) - 0.5))
 	sprite.set_texture(tileset_image)
 	sprite.set_vframes(30)
 	sprite.set_hframes(30)
@@ -56,6 +56,7 @@ func _create_sprite_object(x, y, tile_width, tile_height, tile_index, tileset_im
 	return sprite
 
 func _create_collision_object(object):
+	print('aaaa', ' ', object['x'], ' ', object['y'])
 	var x = object['x']
 	var y = object['y']
 	var half_width = object['width']/2

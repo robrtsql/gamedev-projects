@@ -88,6 +88,9 @@ func _fixed_process(delta):
 		animator.set_anim("Fall")
 		_move_with(velocity, delta)
 	interpolater.fixed_helper(delta, prev_position, teleported)
+	var latest_pos = get_pos()
+	set_pos(Vector2(round(latest_pos.x), round(latest_pos.y)))
 
 func _process(delta):
 	interpolater.idle_interpolate(delta, get_pos())
+	print (get_pos())
