@@ -10,7 +10,7 @@
 position = Vector2( -0.487671, 32.1866 )
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
-physics = true
+physics = false
 
 [node name="Camera2D" type="Camera2D" parent="Sprite"]
 

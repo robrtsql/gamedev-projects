@@ -1,6 +1,6 @@
 extends Sprite
 
-export(bool) var physics = true
+export(bool) var physics = false
 
 func _ready():
 	set_process(true)
