@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://textures/spritesheet.png" type="Texture" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10.5, 10.5 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="SquareSnow" type="Sprite" parent="."]
+
+texture = ExtResource( 1 )
+vframes = 30
+hframes = 30
+frame = 3
+_sections_unfolded = [ "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="SquareSnow"]
+
+visible = false
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SquareSnow/StaticBody2D"]
+
+visible = false
+position = Vector2( 1, 1 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Visibility" ]
+
+

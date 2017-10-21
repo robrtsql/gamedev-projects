@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://scenes/Player.gd" type="Script" id=1]
 [ext_resource path="res://textures/spritesheet.png" type="Texture" id=2]
@@ -57,6 +57,16 @@ tracks/0/keys = {
 "values": [ 59, 58 ]
 }
 
+[sub_resource type="GDScript" id=5]
+
+script/source = "extends Camera2D
+
+func _ready():
+	set_process(true)
+
+func _process(delta):
+	align()"
+
 [node name="KinematicBody2D" type="KinematicBody2D"]
 
 input/pickable = false
@@ -88,6 +98,26 @@ playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 script/script = ExtResource( 3 )
+
+[node name="Camera2D" type="Camera2D" parent="Sprite"]
+
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+script/script = SubResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 

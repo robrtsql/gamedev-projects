@@ -1,0 +1,21 @@
+Couldn't open /home/robrtsql/Documents/github.com/godotengine/godot/bin/godot.x11.tools.pck
+Couldn't open godot.x11.tools.pck
+Couldn't load/find /home/robrtsql/Documents/github.com/godotengine/godot/bin/project.godot or project.binary
+Couldn't load/find /home/robrtsql/Documents/github.com/godotengine/godot/project.godot or project.binary
+Couldn't load/find /home/robrtsql/Documents/github.com/godotengine/project.godot or project.binary
+Couldn't load/find /home/robrtsql/Documents/github.com/project.godot or project.binary
+Couldn't load/find /home/robrtsql/Documents/project.godot or project.binary
+Couldn't load/find /home/robrtsql/project.godot or project.binary
+Couldn't load/find /home/project.godot or project.binary
+Couldn't load/find //project.godot or project.binary
+**WARNING**: XOpenIM failed
+   At: platform/x11/os_x11.cpp:185:initialize() - XOpenIM failed
+**WARNING**: XCreateIC couldn't create xic
+   At: platform/x11/os_x11.cpp:362:initialize() - XCreateIC couldn't create xic
+OpenGL ES 3.0 Renderer: GeForce GTX 1070/PCIe/SSE2
+GLES3: max ubo light: 409
+GLES3: max ubo reflections: 455, ubo size: 144
+WARNING: not found: gdnative/singletons
+Registered interface Native mobile
+SVG_GENERATION TIME: 1.026325
+OPENING: /home/robrtsql/Documents/github.com/godotengine/godot-demo-projects/2d/platformer (::home::robrtsql::Documents::github.com::godotengine::godot-demo-projects::2d::platformer)

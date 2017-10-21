@@ -36,14 +36,7 @@ func _ready():
 func _create_player_object(x, y):
 	var player_obj = player_scene.instance()
 	player_obj.set_pos(Vector2(x, y))
-	var camera = Camera2D.new()
-	camera.set_zoom(Vector2(1, 1))
-	camera.set_drag_margin(MARGIN_BOTTOM, 0)
-	camera.set_drag_margin(MARGIN_TOP, 0)
-	camera.set_drag_margin(MARGIN_LEFT, 0)
-	camera.set_drag_margin(MARGIN_RIGHT, 0)
-	camera.make_current()
-	player_obj.get_node("Sprite").add_child(camera)
+	#player_obj.get_node("Sprite").add_child(camera)
 	return player_obj
 
 func _create_sprite_object(x, y, tile_width, tile_height, tile_index, tileset_image):

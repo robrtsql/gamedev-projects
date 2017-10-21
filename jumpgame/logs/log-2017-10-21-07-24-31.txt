@@ -1,0 +1,10 @@
+Couldn't open /home/robrtsql/Documents/github.com/godotengine/godot/bin/godot.x11.tools.pck
+Couldn't open godot.x11.tools.pck
+**WARNING**: XOpenIM failed
+   At: platform/x11/os_x11.cpp:185:initialize() - XOpenIM failed
+**WARNING**: XCreateIC couldn't create xic
+   At: platform/x11/os_x11.cpp:362:initialize() - XCreateIC couldn't create xic
+OpenGL ES 3.0 Renderer: GeForce GTX 1070/PCIe/SSE2
+GLES3: max ubo light: 409
+GLES3: max ubo reflections: 455, ubo size: 144
+Registered interface Native mobile

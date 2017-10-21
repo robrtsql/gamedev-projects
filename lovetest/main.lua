@@ -38,8 +38,17 @@ function love.update(dt)
 end
 
 function love.interpolate(alpha)
-  ninja.view_x = ninja.x * alpha + ninja.prev_x * (1 - alpha)
-  ninja.view_y = ninja.y * alpha + ninja.prev_y * (1 - alpha)
+  ninja.view_x = ninja.x
+  if (ninja.x ~= ninja.prev_x) then
+    ninja.view_x = ninja.x * alpha + ninja.prev_x * (1 - alpha)
+  end
+  ninja.view_x = math.floor(ninja.view_x)
+
+  ninja.view_y = ninja.y
+  if (ninja.x ~= ninja.prev_x) then
+    ninja.view_y = ninja.y * alpha + ninja.prev_y * (1 - alpha)
+  end
+  ninja.view_y = math.floor(ninja.view_y)
   camera:centerOn(ninja.view_x, ninja.view_y)
 end
 
