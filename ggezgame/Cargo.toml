@@ -1,0 +1,7 @@
+[package]
+name = "ggezgame"
+version = "0.1.0"
+authors = ["robrtsql <robrtsql@gmail.com>"]
+
+[dependencies]
+ggez = "0.3.3"
