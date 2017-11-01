@@ -5,6 +5,10 @@ var state = 1
 var GROUNDED = 0
 var MIDAIR = 1
 
+var facing = 1
+var LEFT = 0
+var RIGHT = 1
+
 var WALK_SPEED = 125
 var TERMINAL_VELOCITY = 200
 var UP_ANGLE = (PI/-2.0)
@@ -17,20 +21,24 @@ var animator
 var grounded = false
 var jump_held
 var interpolater
+var sprite
 
 func _ready():
 	animator = get_node("Sprite/AnimationPlayer")
 	set_fixed_process(true)
 	set_process(true)
 	
+	sprite = get_node("Sprite")
 	interpolater = Interpolate.new()
-	interpolater.initialize(get_node("Sprite"))
+	interpolater.initialize(sprite)
 
 func _move_horizontally():
 	if (Input.is_action_pressed("ui_left")):
 		velocity.x = -WALK_SPEED
+		facing = LEFT
 	elif (Input.is_action_pressed("ui_right")):
 		velocity.x =  WALK_SPEED
+		facing = RIGHT
 	else:
 		velocity.x = 0
 
@@ -46,12 +54,11 @@ func _handle_jump(delta):
 func _move_with(velocity, delta):
 	if (velocity.x == 0 and velocity.y == 0):
 		return
-	move_and_slide(velocity)
-	if is_colliding():
-		var collision_normal = get_collision_normal()
-		print(collision_normal)
-		grounded = (collision_normal.y < 0)
+	move_and_slide(velocity, FLOOR_NORMAL)
+	if is_move_and_slide_on_floor():
+		grounded = true
 	else:
+		print(velocity)
 		grounded = false
 	if (grounded):
 		state = GROUNDED
@@ -72,11 +79,19 @@ func _fixed_process(delta):
 			animator.upsert("Walk")
 		else:
 			animator.upsert("Idle")
+		if facing == LEFT:
+			sprite.set_flip_h(false)
+		elif facing == RIGHT:
+			sprite.set_flip_h(true)
 		_move_with(velocity, delta)
 	elif (state == MIDAIR):
 		_move_horizontally()
 		_apply_gravity(delta)
 		animator.upsert("Fall")
+		if facing == LEFT:
+			sprite.set_flip_h(false)
+		elif facing == RIGHT:
+			sprite.set_flip_h(true)
 		_move_with(velocity, delta)
 	interpolater.fixed_helper(delta, prev_position, teleported)
 	#var latest_pos = get_pos()
