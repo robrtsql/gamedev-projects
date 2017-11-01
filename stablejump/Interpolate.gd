@@ -1,3 +1,10 @@
+# This script takes a physics body which is moving
+# at a fixed timestep and interpolates its position 
+# during the variable-timestep draw loop.
+# This solves problems with jitter: see "Fix Your Timestep"
+# for more information:
+# https://gafferongames.com/post/fix_your_timestep/
+
 const idle_accum = 0
 const sixty_fps_frame = 1.0 / 60.0
 var drawable_node = null

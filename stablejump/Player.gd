@@ -1,3 +1,5 @@
+# Player controller script.
+
 extends KinematicBody2D
 var Interpolate = load("Interpolate.gd")
 

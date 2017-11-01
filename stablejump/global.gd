@@ -1,3 +1,7 @@
+# global singleton script for setting screen resolution, position, etc.
+# this is done in a global singleton to ensure that, regardless of scene,
+# our resolution gets set correctly
+
 extends Node
 
 func _ready():
