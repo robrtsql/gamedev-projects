@@ -45,9 +45,12 @@ func _move_horizontally():
 		velocity.x = 0
 
 func _apply_gravity(delta):
-	velocity.y += 300 * delta
-	if (velocity.y > TERMINAL_VELOCITY):
-		velocity.y = TERMINAL_VELOCITY
+	if not grounded:
+		velocity.y += 300 * delta
+		if (velocity.y > TERMINAL_VELOCITY):
+			velocity.y = TERMINAL_VELOCITY
+	else:
+		velocity.y = 50
 
 func _handle_jump(delta):
 	if (Input.is_action_pressed("ui_up")):
@@ -75,8 +78,8 @@ func _fixed_process(delta):
 	
 	if (state == GROUNDED):
 		_move_horizontally()
-		_handle_jump(delta)
 		_apply_gravity(delta)
+		_handle_jump(delta)
 		if (velocity.x != 0):
 			animator.upsert("Walk")
 		else:
