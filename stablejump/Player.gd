@@ -3,13 +3,18 @@
 extends KinematicBody2D
 var Interpolate = load("Interpolate.gd")
 
-var state = 1
 var GROUNDED = 0
-var MIDAIR = 1
+var LIFTOFF = 1
+var MIDAIR = 2
+var state = 2
 
 var facing = 1
 var LEFT = 0
 var RIGHT = 1
+
+# LIFTOFF
+var liftoff_accum = 0
+var MAX_LIFTOFF_ACCUM = .3
 
 var WALK_SPEED = 125
 var TERMINAL_VELOCITY = 200
@@ -52,9 +57,19 @@ func _apply_gravity(delta):
 	else:
 		velocity.y = 50
 
+func _apply_liftoff(delta):
+	if Input.is_action_pressed("ui_up"):
+		print('liftoff')
+		velocity.y += -100 * delta
+		liftoff_accum += delta
+	if not Input.is_action_pressed("ui_up") or liftoff_accum > MAX_LIFTOFF_ACCUM:
+		state = MIDAIR
+
 func _handle_jump(delta):
 	if (Input.is_action_pressed("ui_up")):
-		velocity.y = -200
+		velocity.y = -100
+		state = LIFTOFF
+		liftoff_accum = 0
 
 func _move_with(velocity, delta):
 	if (velocity.x == 0 and velocity.y == 0):
@@ -63,12 +78,17 @@ func _move_with(velocity, delta):
 	if is_move_and_slide_on_floor():
 		grounded = true
 	else:
-		print(velocity)
 		grounded = false
 	if (grounded):
 		state = GROUNDED
-	else:
+	elif state != LIFTOFF:
 		state = MIDAIR
+
+func _flip_to_facing():
+	if facing == LEFT:
+		sprite.set_flip_h(false)
+	elif facing == RIGHT:
+		sprite.set_flip_h(true)
 
 func _fixed_process(delta):
 	if (Input.is_key_pressed(KEY_ESCAPE)):
@@ -84,23 +104,22 @@ func _fixed_process(delta):
 			animator.upsert("Walk")
 		else:
 			animator.upsert("Idle")
-		if facing == LEFT:
-			sprite.set_flip_h(false)
-		elif facing == RIGHT:
-			sprite.set_flip_h(true)
+		_flip_to_facing()
+		_move_with(velocity, delta)
+	elif (state == LIFTOFF):
+		print('state liftoff')
+		_move_horizontally()
+		_apply_liftoff(delta)
+		animator.upsert("Fall")
+		_flip_to_facing()
 		_move_with(velocity, delta)
 	elif (state == MIDAIR):
 		_move_horizontally()
 		_apply_gravity(delta)
 		animator.upsert("Fall")
-		if facing == LEFT:
-			sprite.set_flip_h(false)
-		elif facing == RIGHT:
-			sprite.set_flip_h(true)
+		_flip_to_facing()
 		_move_with(velocity, delta)
 	interpolater.fixed_helper(delta, prev_position, teleported)
-	#var latest_pos = get_pos()
-	#set_pos(Vector2(round(latest_pos.x), round(latest_pos.y)))
 
 func _process(delta):
 	interpolater.idle_interpolate(delta, get_pos())
