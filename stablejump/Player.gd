@@ -8,21 +8,21 @@ var LIFTOFF = 1
 var MIDAIR = 2
 var state = 2
 
-var facing = 1
 var LEFT = 0
 var RIGHT = 1
+var facing = RIGHT
 
-# LIFTOFF
 var liftoff_accum = 0
-var MAX_LIFTOFF_ACCUM = .3
 
+var MAX_LIFTOFF_ACCUM = .3
+var INITIAL_JUMP_SPEED = -150
+var LIFTOFF_SPEED = -100
+var GRAVITY_SPEED = 300
 var WALK_SPEED = 125
 var TERMINAL_VELOCITY = 200
-var UP_ANGLE = (PI/-2.0)
-var MAX_UP_ANGLE = UP_ANGLE + (PI/4)
-var MIN_UP_ANGLE = UP_ANGLE - (PI/4)
 const FLOOR_NORMAL = Vector2(0,-1)
 const SLOPE_SLIDE_STOP = 25.0
+
 var velocity = Vector2()
 var animator
 var grounded = false
@@ -51,7 +51,7 @@ func _move_horizontally():
 
 func _apply_gravity(delta):
 	if not grounded:
-		velocity.y += 300 * delta
+		velocity.y += GRAVITY_SPEED * delta
 		if (velocity.y > TERMINAL_VELOCITY):
 			velocity.y = TERMINAL_VELOCITY
 	else:
@@ -60,14 +60,16 @@ func _apply_gravity(delta):
 func _apply_liftoff(delta):
 	if Input.is_action_pressed("ui_up"):
 		print('liftoff')
-		velocity.y += -100 * delta
+		velocity.y += LIFTOFF_SPEED * delta
 		liftoff_accum += delta
-	if not Input.is_action_pressed("ui_up") or liftoff_accum > MAX_LIFTOFF_ACCUM:
+	if (not Input.is_action_pressed("ui_up")
+		or liftoff_accum > MAX_LIFTOFF_ACCUM):
 		state = MIDAIR
+		velocity.y = -50
 
 func _handle_jump(delta):
 	if (Input.is_action_pressed("ui_up")):
-		velocity.y = -100
+		velocity.y = INITIAL_JUMP_SPEED
 		state = LIFTOFF
 		liftoff_accum = 0
 
