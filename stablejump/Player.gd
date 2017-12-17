@@ -12,7 +12,7 @@ var RIGHT = 1
 var facing = RIGHT
 
 var INITIAL_JUMP_SPEED = -285
-var GRAVITY_SPEED = 15
+var GRAVITY_ACCEL = 15
 var WALK_SPEED = 82.5
 var TERMINAL_VELOCITY = 420
 const FLOOR_NORMAL = Vector2(0,-1)
@@ -46,17 +46,21 @@ func _move_horizontally():
 
 func _apply_gravity(delta):
 	if not grounded:
-		velocity.y += GRAVITY_SPEED * delta
+		velocity.y += GRAVITY_ACCEL
 		if (velocity.y > TERMINAL_VELOCITY):
 			velocity.y = TERMINAL_VELOCITY
 	else:
 		velocity.y = 50
-	print(velocity.y)
 
 func _handle_jump(delta):
 	if (Input.is_action_pressed("ui_up")):
 		velocity.y = INITIAL_JUMP_SPEED
 		state = MIDAIR
+
+func _handle_jump_cutoff(delta):
+	if (not Input.is_action_pressed("ui_up")
+	    and velocity.y < 0):
+		velocity.y = 0
 
 func _move_with(velocity, delta):
 	if (velocity.x == 0 and velocity.y == 0):
@@ -96,6 +100,7 @@ func _fixed_process(delta):
 	elif (state == MIDAIR):
 		_move_horizontally()
 		_apply_gravity(delta)
+		_handle_jump_cutoff(delta)
 		animator.upsert("Fall")
 		_flip_to_facing()
 		_move_with(velocity, delta)
