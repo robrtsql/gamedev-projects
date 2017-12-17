@@ -4,22 +4,17 @@ extends KinematicBody2D
 var Interpolate = load("Interpolate.gd")
 
 var GROUNDED = 0
-var LIFTOFF = 1
-var MIDAIR = 2
-var state = 2
+var MIDAIR = 1
+var state = 1
 
 var LEFT = 0
 var RIGHT = 1
 var facing = RIGHT
 
-var liftoff_accum = 0
-
-var MAX_LIFTOFF_ACCUM = .3
-var INITIAL_JUMP_SPEED = -150
-var LIFTOFF_SPEED = -100
-var GRAVITY_SPEED = 300
-var WALK_SPEED = 125
-var TERMINAL_VELOCITY = 200
+var INITIAL_JUMP_SPEED = -285
+var GRAVITY_SPEED = 15
+var WALK_SPEED = 82.5
+var TERMINAL_VELOCITY = 420
 const FLOOR_NORMAL = Vector2(0,-1)
 const SLOPE_SLIDE_STOP = 25.0
 
@@ -56,22 +51,12 @@ func _apply_gravity(delta):
 			velocity.y = TERMINAL_VELOCITY
 	else:
 		velocity.y = 50
-
-func _apply_liftoff(delta):
-	if Input.is_action_pressed("ui_up"):
-		print('liftoff')
-		velocity.y += LIFTOFF_SPEED * delta
-		liftoff_accum += delta
-	if (not Input.is_action_pressed("ui_up")
-		or liftoff_accum > MAX_LIFTOFF_ACCUM):
-		state = MIDAIR
-		velocity.y = -50
+	print(velocity.y)
 
 func _handle_jump(delta):
 	if (Input.is_action_pressed("ui_up")):
 		velocity.y = INITIAL_JUMP_SPEED
-		state = LIFTOFF
-		liftoff_accum = 0
+		state = MIDAIR
 
 func _move_with(velocity, delta):
 	if (velocity.x == 0 and velocity.y == 0):
@@ -83,7 +68,7 @@ func _move_with(velocity, delta):
 		grounded = false
 	if (grounded):
 		state = GROUNDED
-	elif state != LIFTOFF:
+	else:
 		state = MIDAIR
 
 func _flip_to_facing():
@@ -106,13 +91,6 @@ func _fixed_process(delta):
 			animator.upsert("Walk")
 		else:
 			animator.upsert("Idle")
-		_flip_to_facing()
-		_move_with(velocity, delta)
-	elif (state == LIFTOFF):
-		print('state liftoff')
-		_move_horizontally()
-		_apply_liftoff(delta)
-		animator.upsert("Fall")
 		_flip_to_facing()
 		_move_with(velocity, delta)
 	elif (state == MIDAIR):
