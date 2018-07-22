@@ -14,6 +14,7 @@ const FLOOR_NORMAL = Vector2(0,-1)
 const SLOPE_SLIDE_STOP = 25.0
 var velocity = Vector2()
 var animator
+var sprite
 var grounded = false
 var jump_held
 var interpolater
@@ -23,14 +24,18 @@ func _ready():
 	set_physics_process(true)
 	set_process(true)
 	
+	sprite = get_node("Sprite")
+
 	interpolater = Interpolate.new()
-	interpolater.initialize(get_node("Sprite"))
+	interpolater.initialize(sprite)
 
 func _move_horizontally():
 	if (Input.is_action_pressed("ui_left")):
 		velocity.x = -WALK_SPEED
+		sprite.flip_h = false
 	elif (Input.is_action_pressed("ui_right")):
 		velocity.x =  WALK_SPEED
+		sprite.flip_h = true
 	else:
 		velocity.x = 0
 
@@ -74,8 +79,6 @@ func _physics_process(delta):
 		animator.upsert("Fall")
 		_move_with(velocity, delta)
 	interpolater.fixed_helper(delta, prev_position, teleported)
-	#var latest_pos = get_position()
-	#set_position(Vector2(round(latest_pos.x), round(latest_pos.y)))
 
 func _process(delta):
 	interpolater.idle_interpolate(delta, get_position())
